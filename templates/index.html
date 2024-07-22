@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+</head>
+<body>
+    <h1>Expense Tracker</h1>
+    <form method="post">
+        <label>Type:</label>
+        <select name="type">
+            <option value="debit">Debit</option>
+            <option value="credit">Credit</option>
+        </select><br>
+        <label>Amount:</label>
+        <input type="text" name="amount"><br>
+        <label>Category:</label>
+        <input type="text" name="category"><br>
+        <label>Date:</label>
+        <input type="text" name="date" value="{{ now }}"><br>
+        <button type="submit">Add Entry</button>
+    </form>
+    <h2>Entries</h2>
+    <table border="1">
+        <tr>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.Type }}</td>
+            <td>${{ entry.Amount }}</td>
+            <td>{{ entry.Category }}</td>
+            <td>{{ entry.Date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>Total Debited: ${{ total_debited }}</p>
+    <p>Total Credited: ${{ total_credited }}</p>
+    <a href="{{ url_for('export_csv') }}">Export as CSV</a>
+</body>
+</html>
